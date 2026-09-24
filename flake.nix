@@ -1,5 +1,5 @@
 {
-  description = "indifferent_d home configuration";
+  description = "Home configuration";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -14,23 +14,39 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, neovim-nightly, ... }@inputs:
+    { nixpkgs, home-manager, neovim-nightly, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-    in
-    {
-      homeConfigurations.indifferent_d =
+
+      mkHome = { username, homeDirectory }:
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
 
           extraSpecialArgs = {
-            inherit inputs neovim-nightly;
+            inherit system neovim-nightly;
           };
 
           modules = [
             ./home.nix
+            {
+              home.username = username;
+              home.homeDirectory = homeDirectory;
+            }
           ];
         };
+    in
+    {
+      homeConfigurations = {
+        personal = mkHome {
+          username = "indifferent_d";
+          homeDirectory = "/home/indifferent_d";
+        };
+
+        work = mkHome {
+          username = "gleb.mozgunov";
+          homeDirectory = "/home/gleb.mozgunov";
+        };
+      };
     };
 }

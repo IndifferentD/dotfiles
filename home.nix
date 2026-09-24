@@ -1,4 +1,4 @@
-{ config, pkgs, neovim-nightly, ... }:
+{ pkgs, neovim-nightly, ... }:
 
 {
   home.username = "indifferent_d";
@@ -37,7 +37,7 @@
     # Neovim is added separately below
   ]
   ++ [
-    neovim-nightly.packages.${pkgs.system}.default
+   neovim-nightly.packages.${pkgs.system}.default
   ];
 
   programs.home-manager.enable = true;
@@ -54,6 +54,7 @@
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
+    historyWidget.command = "";
   };
 
   home.file.".golangci.toml".source =

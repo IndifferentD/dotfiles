@@ -23,6 +23,10 @@ commands=(
 )
 
 for cmd in "${commands[@]}"; do
-  command -v "$cmd" >/dev/null
-  echo "OK: $cmd"
+  command -v "$cmd" >/dev/null || {
+    echo "missing: $cmd"
+    exit 1
+  }
+
+  echo "ok: $cmd"
 done
