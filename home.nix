@@ -57,11 +57,6 @@
     enable = true;
     oh-my-zsh = {
       enable = true;
-      
-      plugins = [
-        "direnv"
-      ];
-      
       theme = "";
     };
     autosuggestion.enable = true;

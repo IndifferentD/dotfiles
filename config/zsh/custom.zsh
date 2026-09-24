@@ -27,6 +27,3 @@ fi
   opts=("${(@)opts:#--color=*}")
   export FZF_DEFAULT_OPTS="${(j: :)opts}${opts:+ }--color=base16,fg:-1,bg:-1,preview-fg:-1,preview-bg:-1"
 }
-
-
-
