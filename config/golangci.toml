@@ -1,0 +1,85 @@
+version = '2'
+
+[run]
+build-tags = [
+  'mod'
+]
+
+[linters]
+default = 'all'
+disable = [
+  'cyclop',
+  'depguard',
+  'err113',
+  'errorlint',
+  'exhaustive',
+  'exhaustruct',
+  'forcetypeassert',
+  'funlen',
+  'gochecknoglobals',
+  'gocognit',
+  'gocyclo',
+  'godot',
+  'godox',
+  'gosec',
+  'lll',
+  'maintidx',
+  'mnd',
+  'nestif',
+  'nlreturn',
+  'noctx',
+  'nonamedreturns',
+  'paralleltest',
+  'perfsprint',
+  'promlinter',
+  'tagalign',
+  'tagliatelle',
+  'testpackage',
+  'varnamelen',
+  'whitespace',
+  'wrapcheck',
+  'wsl',
+  'wsl_v5',
+  'noinlineerr'
+]
+
+[linters.exclusions]
+generated = 'lax'
+presets = [
+  'comments',
+  'common-false-positives',
+  'legacy',
+  'std-error-handling'
+]
+paths = [
+  'third_party$',
+  'builtin$',
+  'examples$'
+]
+
+[[linters.exclusions.rules]]
+linters = [
+  'funlen'
+]
+path = '_test.go'
+
+[[linters.exclusions.rules]]
+linters = [
+  'cyclop',
+  'funlen'
+]
+source = '^func main'
+
+[formatters]
+enable = [
+  'gofmt',
+  'goimports'
+]
+
+[formatters.exclusions]
+generated = 'lax'
+paths = [
+  'third_party$',
+  'builtin$',
+  'examples$'
+]

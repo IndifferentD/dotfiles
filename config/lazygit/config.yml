@@ -1,0 +1,14 @@
+git:
+  pagers:
+    - pager: delta --side-by-side --paging=never --line-numbers
+      colorArg: always
+
+gui:
+  wrapLinesInStagingView: true
+  useHunkModeInStagingView: true
+
+customCommands:
+  - key: 'D'
+    context: 'commits'
+    command: "git log --pretty=format:'%h %ad | %s%d [%an]' --date=short -n 20"
+    output: terminal

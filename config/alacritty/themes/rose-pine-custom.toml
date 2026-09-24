@@ -1,0 +1,24 @@
+# Personal Rose Pine-style palette with customized ANSI colors.
+[colors.primary]
+background = "#191724"
+foreground = "#e0def4"
+
+[colors.normal]
+black = "#26233a"
+red = "#eb6f92"
+green = "#7fb07f"
+yellow = "#f6c177"
+blue = "#8bb8e8"
+magenta = "#c4a7e7"
+cyan = "#9ccfd8"
+white = "#e0def4"
+
+[colors.bright]
+black = "#6e6a86"
+red = "#f08aa8"
+green = "#9ccf8a"
+yellow = "#f9cb8c"
+blue = "#b2d6ff"
+magenta = "#d8bdf3"
+cyan = "#b8e7ef"
+white = "#f6f2ff"

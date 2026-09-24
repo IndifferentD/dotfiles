@@ -41,4 +41,33 @@
   ];
 
   programs.home-manager.enable = true;
+
+  programs.zsh = {
+    enable = true;
+  };
+
+  programs.atuin = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+  
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  home.file.".golangci.toml".source =
+    ./config/golangci.toml;
+
+  home.file.".tmux.conf".source =
+    ./config/tmux.conf;
+
+  xdg.configFile."alacritty".source =
+    ./config/alacritty;
+
+  xdg.configFile."lazygit".source =
+    ./config/lazygit;
+
+  xdg.configFile."starship.toml".source =
+    ./config/starship.toml;
 }

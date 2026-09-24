@@ -1,0 +1,55 @@
+format = "$directory$git_branch$git_status${custom.git_last_commit}$line_break$character"
+right_format = "$golang$python$nodejs"
+
+[character]
+success_symbol = "[❯](bold #9ccfd8)"
+error_symbol = "[❯](bold #eb6f92)"
+
+[directory]
+style = "bold #9ccfd8"
+truncation_length = 3
+truncate_to_repo = false
+
+[git_branch]
+symbol = " "
+style = "bold #c4a7e7"
+
+[git_status]
+style = "bold #f6c177"
+
+# Latest commit at HEAD, with a compact subject for the prompt.
+[custom.git_last_commit]
+require_repo = true
+when = true
+shell = ["zsh", "-f"]
+command = '''
+commit=$(git log -1 --format='%h %s' --no-show-signature 2>/dev/null) || exit 0
+hash=${commit%% *}
+subject=${commit#* }
+subject=${subject//[[:cntrl:]]/ }
+if (( ${#subject} > 50 )); then
+  subject="${subject[1,47]}..."
+fi
+print -r -- "$hash $subject"
+'''
+format = "[$output]($style) "
+style = "#908caa"
+
+[golang]
+symbol = " "
+format = "[$symbol$version ]($style)"
+style = "bold #31748f"
+detect_files = ["go.mod", "go.sum"]
+
+[python]
+symbol = " "
+format = "[$symbol$version ]($style)"
+style = "bold #f6c177"
+detect_files = ["pyproject.toml", "requirements.txt", "Pipfile", ".python-version"]
+detect_folders = [".venv", "venv"]
+
+[nodejs]
+symbol = " "
+format = "[$symbol$version ]($style)"
+style = "bold #a6da95"
+detect_files = ["package.json", ".nvmrc", ".node-version"]
