@@ -1,8 +1,7 @@
 { config, pkgs, neovim-nightly, ... }:
 
 {
-  home.username = "indifferent_d";
-  home.homeDirectory = "/home/indifferent_d";
+
   home.sessionPath = [
     "$HOME/go/bin"
   ];
@@ -25,6 +24,7 @@
     gnutar
     gcc
     delta
+    curl
 
     # languages
     nodejs
@@ -68,6 +68,12 @@
     syntaxHighlighting.enable = true;
     initContent = builtins.readFile ./config/zsh/custom.zsh;
   };
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.zsh.shellAliases = {
     ls = "eza -lh --group-directories-first --icons=auto";
     lsa = "eza -lha --group-directories-first --icons=auto";

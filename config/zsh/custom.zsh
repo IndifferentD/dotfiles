@@ -1,3 +1,6 @@
+DISABLE_MAGIC_FUNCTIONS="true"
+COMPLETION_WAITING_DOTS="true"
+
 function sesh-sessions() {
   {
     exec </dev/tty
@@ -22,7 +25,7 @@ fi
   local -a opts
   opts=(${(z)FZF_DEFAULT_OPTS})
   opts=("${(@)opts:#--color=*}")
-  export FZF_DEFAULT_OPTS="${(j: :)opts}${opts:+ }--color=base16,..."
+  export FZF_DEFAULT_OPTS="${(j: :)opts}${opts:+ }--color=base16,fg:-1,bg:-1,preview-fg:-1,preview-bg:-1"
 }
 
 

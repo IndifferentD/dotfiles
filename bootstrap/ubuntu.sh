@@ -20,15 +20,17 @@ if confirm "Install base packages and Zsh?"; then
 fi
 
 if ! command -v nix >/dev/null 2>&1; then
-  if confirm "Install Nix in multi-user daemon mode?"; then
+  if confirm "Install Nix?"; then
     curl -L https://nixos.org/nix/install | sh -s -- --daemon
-
-    echo
-    echo "Nix installed."
-    echo "You may need to open a new shell before using nix."
   fi
-else
-  echo "Nix already installed."
+fi
+
+if confirm "Enable Nix flakes?"; then
+  sudo mkdir -p /etc/nix
+  echo 'experimental-features = nix-command flakes' \
+    | sudo tee -a /etc/nix/nix.conf >/dev/null
+
+  sudo systemctl restart nix-daemon
 fi
 
 ZSH_PATH="$(command -v zsh || true)"
