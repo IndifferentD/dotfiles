@@ -1,6 +1,6 @@
 git:
-  pagers:
-    - pager: delta --side-by-side --paging=never --line-numbers
+  diffRenderers:
+    - command: delta --side-by-side --paging=never --line-numbers
       colorArg: always
 
 gui:
