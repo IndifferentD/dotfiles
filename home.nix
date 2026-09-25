@@ -120,7 +120,15 @@
   };
 
   fonts.fontconfig.enable = true;
-  
+  xdg.configFile."autostart/alacritty.desktop".text = ''
+  [Desktop Entry]
+  Type=Application
+  Name=Alacritty
+  Exec=sh -c "sleep 3; exec /usr/bin/alacritty"
+  Terminal=false
+  X-GNOME-Autostart-enabled=true
+'';
+
   xdg.configFile."background".source = ./config/background;
   dconf.settings = {
     "org/gnome/desktop/background" = {
@@ -128,4 +136,5 @@
       picture-uri-dark = "file://${config.home.homeDirectory}/.config/background";
     };
   };
+
 }
