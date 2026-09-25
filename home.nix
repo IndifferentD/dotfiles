@@ -26,6 +26,8 @@
     delta
     curl
 
+    codex
+
     # languages
     nodejs
     pnpm
@@ -44,7 +46,6 @@
 
     # fonts
     nerd-fonts.jetbrains-mono
-
     # Neovim is added separately below
   ]
   ++ [
