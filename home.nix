@@ -9,7 +9,6 @@
 
   home.packages = with pkgs; [
     # terminal/dev tools
-    alacritty
     atuin
     tmux
     fastfetch
@@ -128,31 +127,4 @@
       picture-uri-dark = "file://${config.home.homeDirectory}/.config/background";
     };
   };
-
-  xdg.enable = true;
-
-  xdg.terminal-exec = {
-    enable = true;
-
-    settings = {
-      GNOME = [
-        "Alacritty.desktop"
-      ];
- 
-      default = [
-        "Alacritty.desktop"
-      ];
-    };
-  };
-  xdg.desktopEntries.alacritty = {
-    name = "Alacritty";
-    genericName = "Terminal";
-    exec = "${pkgs.alacritty}/bin/alacritty";
-    terminal = false;
-    categories = [
-      "System"
-      "TerminalEmulator"
-    ];
-  };
-
 }

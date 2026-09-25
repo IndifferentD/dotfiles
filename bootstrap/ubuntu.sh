@@ -14,7 +14,8 @@ if confirm "Install base packages and Zsh?"; then
     curl \
     ca-certificates \
     git \
-    zsh
+    zsh \
+    alacritty
 
   echo "Base packages installed."
 fi
