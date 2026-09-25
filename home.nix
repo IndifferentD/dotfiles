@@ -9,6 +9,7 @@
 
   home.packages = with pkgs; [
     # terminal/dev tools
+    alacritty
     atuin
     tmux
     fastfetch
