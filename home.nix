@@ -114,11 +114,6 @@
   xdg.configFile."starship.toml".source =
     ./config/starship.toml;
 
-  xdg.configFile."ubuntu-xdg-terminals.list".text = ''
-    Alacritty.desktop
-  '';
-
-
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
@@ -131,7 +126,23 @@
     "org/gnome/desktop/background" = {
       picture-uri = "file://${config.home.homeDirectory}/.config/background";
       picture-uri-dark = "file://${config.home.homeDirectory}/.config/background";
+    };
   };
-};
+
+  xdg.enable = true;
+
+  xdg.terminal-exec = {
+    enable = true;
+
+    settings = {
+      GNOME = [
+        "Alacritty.desktop"
+      ];
+ 
+      default = [
+        "Alacritty.desktop"
+      ];
+    };
+  };
 
 }
