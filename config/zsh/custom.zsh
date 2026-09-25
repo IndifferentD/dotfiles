@@ -27,3 +27,17 @@ fi
   opts=("${(@)opts:#--color=*}")
   export FZF_DEFAULT_OPTS="${(j: :)opts}${opts:+ }--color=base16,fg:-1,bg:-1,preview-fg:-1,preview-bg:-1"
 }
+
+[[ -f "$HOME/.config/zsh/local.zsh" ]] && source "$HOME/.config/zsh/local.zsh"
+codex() {
+  local proxy="${CODEX_PROXY:-}"
+
+  if [[ -n "$proxy" ]]; then
+    ALL_PROXY="$proxy" \
+    HTTPS_PROXY="$proxy" \
+    HTTP_PROXY="$proxy" \
+    command codex "$@"
+  else
+    command codex "$@"
+  fi
+}
