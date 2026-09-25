@@ -118,8 +118,8 @@ fi
 echo
 echo "Bootstrap finished."
 echo "Recommended next steps:"
-echo "  1. log out / log back in if shell or docker group changed"
-echo "  2. clone dotfiles"
-echo "  3. nix flake check"
-echo "  4. nix build .#homeConfigurations.personal.activationPackage"
-echo "  5. ./result/activate"
+echo "  1. cd ~/dotfiles"
+echo "  2. nix flake check"
+echo "  3. nix build .#homeConfigurations.personal.activationPackage"
+echo "  4. nix run github:nix-community/home-manager/master -- switch --flake .#personal"
+echo "  5. log out / log back in if shell or docker group changed"
