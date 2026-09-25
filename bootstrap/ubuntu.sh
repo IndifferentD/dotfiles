@@ -20,6 +20,20 @@ if confirm "Install base packages and Zsh?"; then
   echo "Base packages installed."
 fi
 
+NVIM_CONFIG="$HOME/.config/nvim"
+
+if [[ ! -e "$NVIM_CONFIG" ]]; then
+  if confirm "Clone Neovim config to $NVIM_CONFIG?"; then
+    git clone \
+      https://github.com/IndifferentD/kickstart.nvim.git \
+      "$NVIM_CONFIG"
+
+    echo "Neovim config cloned."
+  fi
+else
+  echo "Neovim config already exists at $NVIM_CONFIG, skipping."
+fi
+
 if ! command -v nix >/dev/null 2>&1; then
   if confirm "Install Nix?"; then
     curl -L https://nixos.org/nix/install | sh -s -- --daemon
