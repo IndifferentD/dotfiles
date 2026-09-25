@@ -5,7 +5,6 @@ commands=(
   nvim
   tmux
   fastfetch
-  psql
   rg
   fd
   fzf
