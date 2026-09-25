@@ -144,5 +144,15 @@
       ];
     };
   };
+  xdg.desktopEntries.alacritty = {
+    name = "Alacritty";
+    genericName = "Terminal";
+    exec = "${pkgs.alacritty}/bin/alacritty";
+    terminal = false;
+    categories = [
+      "System"
+      "TerminalEmulator"
+    ];
+  };
 
 }
