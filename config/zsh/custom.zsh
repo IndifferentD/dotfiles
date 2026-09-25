@@ -29,6 +29,7 @@ fi
 }
 
 [[ -f "$HOME/.config/zsh/local.zsh" ]] && source "$HOME/.config/zsh/local.zsh"
+
 codex() {
   local proxy="${CODEX_PROXY:-}"
 
@@ -38,6 +39,13 @@ codex() {
     HTTP_PROXY="$proxy" \
     command codex "$@"
   else
-    command codex "$@"
+    printf 'CODEX_PROXY is not set. Run Codex without proxy? [y/N] '
+    read -r reply
+
+    if [[ "$reply" == [yY] ]]; then
+      command codex "$@"
+    else
+      return 1
+    fi
   fi
 }
