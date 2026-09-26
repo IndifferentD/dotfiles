@@ -2,6 +2,10 @@
 
 {
 
+  imports = [
+    ./modules/programs/tmux.nix
+  ];
+
   home.sessionPath = [
     "$HOME/go/bin"
   ];
@@ -10,7 +14,6 @@
   home.packages = with pkgs; [
     # terminal/dev tools
     atuin
-    tmux
     fastfetch
     ripgrep
     fd
@@ -101,9 +104,6 @@
 
   home.file.".golangci.toml".source =
     ./config/golangci.toml;
-
-  home.file.".tmux.conf".source =
-    ./config/tmux.conf;
 
   xdg.configFile."alacritty".source =
     ./config/alacritty;
