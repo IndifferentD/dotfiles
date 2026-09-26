@@ -124,7 +124,7 @@
   [Desktop Entry]
   Type=Application
   Name=Alacritty
-  Exec=sh -c "sleep 3; exec /usr/bin/alacritty"
+  Exec=sh -c "sleep 6; exec /usr/bin/alacritty"
   Terminal=false
   X-GNOME-Autostart-enabled=true
 '';
