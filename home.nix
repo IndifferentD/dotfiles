@@ -29,10 +29,10 @@
     delta
     curl
 
-    # Install Codex together with RTK.
+    # Install Codex together with RTK and OpenSpec.
     (symlinkJoin {
       name = "codex-system-bwrap-${codex.version}";
-      paths = [ codex rtk ];
+      paths = [ codex rtk openspec ];
       nativeBuildInputs = [ makeWrapper ];
       postBuild = ''
         # Prefer Ubuntu's bwrap, whose path matches its AppArmor profile.
