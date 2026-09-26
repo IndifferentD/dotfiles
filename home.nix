@@ -29,9 +29,10 @@
     delta
     curl
 
+    # Install Codex together with RTK.
     (symlinkJoin {
       name = "codex-system-bwrap-${codex.version}";
-      paths = [ codex ];
+      paths = [ codex rtk ];
       nativeBuildInputs = [ makeWrapper ];
       postBuild = ''
         # Prefer Ubuntu's bwrap, whose path matches its AppArmor profile.
