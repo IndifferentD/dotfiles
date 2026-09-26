@@ -29,7 +29,22 @@
     delta
     curl
 
-    codex
+    (symlinkJoin {
+      name = "codex-system-bwrap-${codex.version}";
+      paths = [ codex ];
+      nativeBuildInputs = [ makeWrapper ];
+      postBuild = ''
+        # Prefer Ubuntu's bwrap, whose path matches its AppArmor profile.
+        # Codex added /usr/bin/bwrap preference, then switched to PATH lookup:
+        # https://github.com/openai/codex/pull/14963
+        # https://github.com/openai/codex/pull/15791
+        # Override nixpkgs' wrapper, which puts Nix bubblewrap first on PATH.
+        rm "$out/bin/codex"
+        makeWrapper ${codex}/bin/.codex-wrapped "$out/bin/codex" \
+          --prefix PATH : "/usr/bin:${lib.makeBinPath [ ripgrep bubblewrap ]}"
+      '';
+      inherit (codex) meta;
+    })
 
     # languages
     nodejs
