@@ -18,6 +18,8 @@ bindkey -M viins '\es' sesh-sessions
 if command -v tmux >/dev/null 2>&1 && [ -z "$TMUX" ]; then
   if ! tmux ls >/dev/null 2>&1; then
     exec tmux new-session -s main
+  else
+    exec tmux attach-session
   fi
 fi
 

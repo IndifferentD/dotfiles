@@ -68,7 +68,7 @@
     # Neovim is added separately below
   ]
   ++ [
-   neovim-nightly.packages.${pkgs.system}.default
+   neovim-nightly.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   programs.home-manager.enable = true;
