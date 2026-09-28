@@ -118,6 +118,13 @@
     enableZshIntegration = true;
   };
 
+  programs.yazi = {
+    enable = true;
+    enableZshIntegration = true;
+    shellWrapperName = "y";
+    settings.mgr.show_hidden = true;
+  };
+
   home.file.".golangci.toml".source =
     ./config/golangci.toml;
 
