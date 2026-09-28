@@ -56,6 +56,7 @@
 
     # infra
     kubectl
+    k9s
 
     # git/github
     gh
