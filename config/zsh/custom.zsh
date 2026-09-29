@@ -16,11 +16,7 @@ bindkey -M vicmd '\es' sesh-sessions
 bindkey -M viins '\es' sesh-sessions
 
 if command -v tmux >/dev/null 2>&1 && [[ -z "$TMUX" ]]; then
-  if tmux has-session -t main 2>/dev/null; then
-    tmux attach-session -t main
-  else
-    tmux new-session -s main
-  fi
+  tmux new-session -A -s main
 fi
 
 () {
