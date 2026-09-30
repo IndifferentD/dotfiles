@@ -115,11 +115,12 @@ EOF
   fi
 fi
 
+if confirm "Install niri and DankMaterialShell from Ubuntu PPAs?"; then
+  "$(dirname "$0")/ubuntu-niri-dms.sh"
+fi
+
 echo
 echo "Bootstrap finished."
-echo "Recommended next steps:"
-echo "  1. cd ~/dotfiles"
-echo "  2. nix flake check"
-echo "  3. nix build .#homeConfigurations.personal.activationPackage"
-echo "  4. nix run github:nix-community/home-manager/master -- switch --flake .#personal"
-echo "  5. log out / log back in if shell or docker group changed"
+echo "Log out and back in to pick up the new shell, Nix, and group membership."
+echo "If you installed Nix, then apply the Home Manager profile:"
+echo '  nix run github:nix-community/home-manager/master -- switch --flake "path:$HOME/dotfiles#personal"'

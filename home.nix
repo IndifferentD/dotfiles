@@ -28,6 +28,7 @@
     gcc
     delta
     curl
+    wl-clipboard
 
     # Install Codex together with RTK and OpenSpec.
     (symlinkJoin {
@@ -154,6 +155,7 @@
   Name=Alacritty
   Exec=sh -c "sleep 6; exec /usr/bin/alacritty"
   Terminal=false
+  OnlyShowIn=GNOME;
   X-GNOME-Autostart-enabled=true
 '';
 

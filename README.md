@@ -1,44 +1,34 @@
-## Ubuntu setup
+# Dotfiles
 
-Tested on Ubuntu 26.04.1 LTS.
+Personal Ubuntu 26.04+ setup. Home Manager manages the user profile; Ubuntu
+packages provide niri and DankMaterialShell so they use the system graphics
+stack.
 
-### 1. Install base tools
+## Fresh installation
 
 ```bash
 sudo apt update
 sudo apt install -y git curl
+git clone https://github.com/IndifferentD/dotfiles "$HOME/dotfiles"
+cd "$HOME/dotfiles"
+./bootstrap/ubuntu.sh
 ```
 
-### 2. Clone this repository
+The bootstrap offers Zsh, Nix, Docker, and niri with DankMaterialShell. Log out
+and back in so the new shell, Nix, and group membership are available. Then
+apply the Home Manager profile:
+
 ```bash
-git clone https://github.com/IndifferentD/dotfiles ~/dotfiles
-cd ~/dotfiles
-```
-
-### 3. Run the Ubuntu bootstrap
-```bash
-bootstrap/ubuntu.sh
-```
-
-The bootstrap currently handles:
-- Zsh installation
-- Nix installation
-- enabling nix-command and flakes
-- changing the login shell to Zsh
-- optional Docker installation
-### 4. Build and validate the Nix configuration
-
-```
-nix flake check```
-
-### 5. Apply the Home Manager configuration
-For the first run:
-```
 nix run github:nix-community/home-manager/master -- \
-  switch --flake ~/dotfiles#personal```
+  switch --flake "path:$HOME/dotfiles#personal"
+```
 
-After Home Manager is installed into the environment, future updates can be applied with:
-```home-manager switch --flake ~/dotfiles#personal```
+If you installed niri, select **Niri** in GDM. DMS starts with niri, and GNOME
+remains available from the same session picker.
 
-### 6. Log out and log back in
-This is required after changing the login shell and may also be required after Docker group changes.
+## Updates
+
+```bash
+cd "$HOME/dotfiles"
+home-manager switch --flake "path:$HOME/dotfiles#personal"
+```
