@@ -53,6 +53,10 @@
     go
     golangci-lint
     bun
+    rustc
+    cargo
+    rustfmt
+    clippy
 
     # infra
     kubectl
