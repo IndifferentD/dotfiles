@@ -7,6 +7,7 @@
 
     plugins = with pkgs.tmuxPlugins; [
       cpu
+      extrakto
       # Keep these last, in this order, for session restoration.
       resurrect
       {
