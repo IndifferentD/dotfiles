@@ -11,7 +11,9 @@ let
     version = "0.14.1";
     src = fastcopySrc;
     vendorHash = "sha256-Jcx9/qJKR4q1EYUu6NsNkakJS/qtQLlhys0GKx5BLQk=";
-    GOFLAGS = [ "-buildvcs=false" ];
+    preBuild = ''
+      export GOFLAGS="$GOFLAGS -buildvcs=false"
+    '';
   };
 
   fastcopyPlugin = pkgs.tmuxPlugins.mkTmuxPlugin {
