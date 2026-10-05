@@ -3,6 +3,7 @@
 {
 
   imports = [
+    ./modules/programs/git.nix
     ./modules/programs/tmux.nix
   ];
 
