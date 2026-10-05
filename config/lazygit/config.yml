@@ -1,9 +1,13 @@
 git:
   diffRenderers:
-    - command: delta --side-by-side --paging=never --line-numbers
+    - command: delta --paging=never
       colorArg: always
 
 gui:
+  sidePanelWidth: 0.2
+  theme:
+    selectedLineBgColor: ['#2b405a']
+    activeBorderColor: ['#7a9cc6']
   wrapLinesInStagingView: true
   useHunkModeInStagingView: true
 
