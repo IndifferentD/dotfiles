@@ -12,8 +12,8 @@ stack.
   `modules/programs/` as a module. Each directory must contain a `default.nix`;
   adding one enables the program in both profiles.
 - `modules/programs/<name>/` keeps a program's Home Manager settings and any
-  config files together. The Alacritty and Kitty modules manage config files
-  only; their applications are installed outside Home Manager.
+  config files together. The Kitty module manages config files only; Kitty is
+  installed outside Home Manager.
 - `modules/desktop/` contains desktop settings that are not a single program.
 
 ## Fresh installation
