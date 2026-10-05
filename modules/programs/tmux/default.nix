@@ -1,6 +1,8 @@
 { lib, pkgs, ... }:
 
 {
+  home.packages = [ pkgs.sesh ];
+
   programs.tmux = {
     enable = true;
     sensibleOnTop = true;
@@ -28,6 +30,6 @@
   # its defaults (order 500) and plugins (order 1000), so status-right is set
   # before cpu/continuum update it and restoration runs after our bindings.
   xdg.configFile."tmux/tmux.conf".text =
-    lib.mkOrder 600 (builtins.readFile ../../config/tmux.conf);
+    lib.mkOrder 600 (builtins.readFile ./tmux.conf);
 
 }
