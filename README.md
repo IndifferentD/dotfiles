@@ -12,8 +12,8 @@ stack.
   `modules/programs/` as a module. Each directory must contain a `default.nix`;
   adding one enables the program in both profiles.
 - `modules/programs/<name>/` keeps a program's Home Manager settings and any
-  config files together. The Kitty module manages config files only; Kitty is
-  installed outside Home Manager.
+  config files together. The Kitty module manages config files only; the
+  bootstrap installs Kitty through Ubuntu's `apt`.
 - `modules/desktop/` contains desktop settings that are not a single program.
 
 ## Fresh installation

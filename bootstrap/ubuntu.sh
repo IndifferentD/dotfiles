@@ -8,12 +8,13 @@ confirm() {
 
 echo "Ubuntu bootstrap"
 
-if confirm "Install base packages and Zsh?"; then
+if confirm "Install base packages, Zsh, and Kitty?"; then
   sudo apt update
   sudo apt install -y \
     curl \
     ca-certificates \
     git \
+    kitty \
     zsh
 
   echo "Base packages installed."
