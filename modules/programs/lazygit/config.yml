@@ -8,8 +8,8 @@ gui:
   theme:
     selectedLineBgColor: ['#2b405a']
     activeBorderColor: ['#7a9cc6']
-  wrapLinesInStagingView: true
-  useHunkModeInStagingView: true
+  wrapLinesInDiffView: true
+  useHunkModeInDiffView: true
 
 customCommands:
   - key: 'D'
