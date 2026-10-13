@@ -19,12 +19,12 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
 
-      mkHome = { username, homeDirectory }:
+      mkHome = { username, homeDirectory, profile }:
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
 
           extraSpecialArgs = {
-            inherit system neovim-nightly;
+            inherit system neovim-nightly profile;
           };
 
           modules = [
@@ -41,12 +41,21 @@
         personal = mkHome {
           username = "indifferent_d";
           homeDirectory = "/home/indifferent_d";
+          profile = "personal";
         };
 
-        work = mkHome {
-          username = "gleb.mozgunov";
-          homeDirectory = "/home/gleb.mozgunov";
-        };
+        any =
+          let
+            username = builtins.getEnv "USER";
+            homeDirectory = builtins.getEnv "HOME";
+          in
+          if username == "" || homeDirectory == "" then
+            throw "The any profile needs USER and HOME; pass --impure to Home Manager"
+          else
+            mkHome {
+              inherit username homeDirectory;
+              profile = "any";
+            };
       };
     };
 }

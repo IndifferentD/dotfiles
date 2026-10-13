@@ -6,8 +6,9 @@ stack.
 
 ## Repository layout
 
-- `flake.nix` defines the `personal` and `work` Home Manager profiles and pins
-  their inputs through `flake.lock`.
+- `flake.nix` defines the `personal` and `any` Home Manager profiles and pins
+  their inputs through `flake.lock`. The `any` profile uses the current user's
+  `USER` and `HOME` environment variables.
 - `home.nix` holds shared packages and imports every directory under
   `modules/programs/` as a module. Each directory must contain a `default.nix`;
   adding one enables the program in both profiles.
@@ -45,6 +46,17 @@ cd "$HOME/dotfiles"
 home-manager switch --flake "path:$HOME/dotfiles#personal"
 ```
 
+To apply the same shared configuration to the current user instead, select
+`any`:
+
+```bash
+home-manager switch --impure --flake "path:$HOME/dotfiles#any"
+```
+
+The `any` profile requires `--impure` so Nix can read `USER` and `HOME`; without
+it, evaluation fails. The `personal` profile keeps the fixed personal account
+and Git identity.
+
 The `path:` form also sees new files before they are added to Git. With
-`--flake .#personal`, Git-backed flakes ignore untracked files; run
-`git add -N path/to/new/default.nix` or stage them before switching.
+`--flake .#personal` or `--flake .#any`, Git-backed flakes ignore untracked
+files; run `git add -N path/to/new/default.nix` or stage them before switching.

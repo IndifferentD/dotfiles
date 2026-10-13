@@ -124,3 +124,5 @@ echo "Bootstrap finished."
 echo "Log out and back in to pick up the new shell, Nix, and group membership."
 echo "If you installed Nix, then apply the Home Manager profile:"
 echo '  nix run github:nix-community/home-manager/master -- switch --flake "path:$HOME/dotfiles#personal"'
+echo "For the current user instead, use the any profile:"
+echo '  nix run github:nix-community/home-manager/master -- switch --impure --flake "path:$HOME/dotfiles#any"'

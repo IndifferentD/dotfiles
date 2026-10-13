@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, profile, ... }:
 
 {
   home.packages = [ pkgs.delta ];
@@ -22,7 +22,7 @@
         "plus-emph-style" = "syntax #365342";
       };
       init.defaultBranch = "main";
-    } // lib.optionalAttrs (config.home.username == "indifferent_d") {
+    } // lib.optionalAttrs (profile == "personal") {
       credential.helper = "store";
       user = {
         name = "IndifferentD";
