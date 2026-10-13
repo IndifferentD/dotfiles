@@ -10,7 +10,10 @@ in
   imports = [ ./modules/desktop/background ]
     ++ builtins.map (name: ./modules/programs + "/${name}") programNames;
 
-  home.sessionPath = [ "$HOME/go/bin" ];
+  home.sessionPath = [
+    "$HOME/go/bin"
+    "$HOME/.local/share/pnpm/bin"
+  ];
   home.stateVersion = "26.05";
 
   home.packages = with pkgs; [
