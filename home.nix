@@ -29,6 +29,7 @@ in
     gcc
     curl
     wl-clipboard
+    ghidra-bin
 
     # Install Codex together with RTK and OpenSpec.
     (symlinkJoin {
