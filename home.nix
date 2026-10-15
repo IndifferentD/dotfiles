@@ -22,7 +22,6 @@ in
     uv
     tree-sitter
     gnutar
-    gcc
     curl
     wl-clipboard
 
