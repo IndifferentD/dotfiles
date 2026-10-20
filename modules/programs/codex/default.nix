@@ -1,6 +1,8 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
+  nixpkgs.config.allowUnfreePredicate = pkg: lib.getName pkg == "rtk";
+
   home.packages = [
     (pkgs.symlinkJoin {
       name = "codex-system-bwrap-${pkgs.codex.version}";
