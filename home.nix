@@ -5,18 +5,12 @@ let
   programNames = builtins.filter
     (name: programEntries.${name} == "directory")
     (builtins.attrNames programEntries);
-  pyghidraPython = pkgs.python3.withPackages (ps: [ ps.pyghidra ]);
 in
 {
   imports = [ ./modules/desktop/background ]
     ++ builtins.map (name: ./modules/programs + "/${name}") programNames;
 
   home.stateVersion = "26.05";
-  home.sessionVariables = {
-    GHIDRA_INSTALL_DIR = "${pkgs.ghidra-bin}/lib/ghidra";
-    JAVA_HOME = "${pkgs.jdk25}/lib/openjdk";
-  };
-
   home.packages = with pkgs; [
     # Terminal and development tools without separate configuration.
     fastfetch
@@ -32,8 +26,6 @@ in
     wl-clipboard
 
     # Reverse engineering tools.
-    ghidra-bin
-    pyghidraPython
     detect-it-easy
 
     # Languages.
