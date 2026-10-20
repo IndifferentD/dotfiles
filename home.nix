@@ -20,6 +20,7 @@ in
   home.packages = with pkgs; [
     # Terminal and development tools without separate configuration.
     fastfetch
+    btop
     ripgrep
     fd
     eza
