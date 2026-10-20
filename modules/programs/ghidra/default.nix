@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 let
   # patchelf 0.19.2 from nixpkgs#569010 corrupts Ghidra's decompile binary.
@@ -13,7 +13,7 @@ let
     };
   });
   ghidra = pkgs.lib.warn
-    "Ghidra uses a temporary patchelf 0.15.2 workaround; remove it once https://github.com/NixOS/patchelf/pull/672 reaches nixpkgs."
+    "GHIDRA WORKAROUND ACTIVE: patchelf 0.15.2 is pinned until https://github.com/NixOS/patchelf/pull/672 reaches nixpkgs."
     (pkgs.ghidra-bin.overrideAttrs (previousAttrs: {
       nativeBuildInputs = previousAttrs.nativeBuildInputs ++ [ patchelf015 ];
       preFixup = (previousAttrs.preFixup or "") + ''
@@ -23,6 +23,10 @@ let
   pyghidraPython = pkgs.python3.withPackages (ps: [ ps.pyghidra ]);
 in
 {
+  home.activation.ghidraPatchelfNotice = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    printf '\033[1;31mGHIDRA WORKAROUND ACTIVE: patchelf 0.15.2 is pinned; remove it after nixpkgs includes the fix.\033[0m\n' >&2
+  '';
+
   home.packages = [
     ghidra
     pyghidraPython
