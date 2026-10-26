@@ -18,6 +18,10 @@ let
       nativeBuildInputs = previousAttrs.nativeBuildInputs ++ [ patchelf015 ];
       preFixup = (previousAttrs.preFixup or "") + ''
         export PATH="${patchelf015}/bin:$PATH"
+        # Java AWT otherwise leaves Ghidra windows blank under Sway.
+        substituteInPlace "$out/lib/ghidra/support/launch.properties" \
+          --replace-fail '#ENVVARS_LINUX=_JAVA_AWT_WM_NONREPARENTING=1' \
+          'ENVVARS_LINUX=_JAVA_AWT_WM_NONREPARENTING=1'
       '';
     }));
   pyghidraPython = pkgs.python3.withPackages (ps: [ ps.pyghidra ]);
