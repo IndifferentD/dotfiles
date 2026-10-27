@@ -27,7 +27,11 @@ cd "$HOME/dotfiles"
 ./bootstrap/ubuntu.sh
 ```
 
-The bootstrap offers Zsh, Nix, Docker, and niri with DankMaterialShell. Log out
+The bootstrap offers Zsh, Nix, Docker, Google Chrome, Telegram Desktop, and niri
+with DankMaterialShell. Each installation is optional and defaults to no.
+Chrome uses Google's official `.deb` package (amd64 or arm64), which adds its
+apt repository for updates; Telegram uses the official `telegram-desktop` Snap.
+Log out
 and back in so the new shell, Nix, and group membership are available. Then
 apply the Home Manager profile:
 

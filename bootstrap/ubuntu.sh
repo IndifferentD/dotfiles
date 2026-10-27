@@ -20,6 +20,45 @@ if confirm "Install base packages, Zsh, and Kitty?"; then
   echo "Base packages installed."
 fi
 
+if confirm "Install Google Chrome from Google's official .deb package?"; then
+  (
+    CHROME_ARCH="$(dpkg --print-architecture)"
+    case "$CHROME_ARCH" in
+      amd64|arm64) ;;
+      *)
+        echo "Google Chrome is unavailable for $CHROME_ARCH, skipping."
+        exit 0
+        ;;
+    esac
+
+    sudo apt update
+    sudo apt install -y curl ca-certificates
+
+    CHROME_DIR="$(mktemp -d)"
+    trap 'rm -rf -- "$CHROME_DIR"' EXIT
+    # Allow apt's sandbox user to read the downloaded package.
+    chmod 755 "$CHROME_DIR"
+    curl -fsSL \
+      "https://dl.google.com/linux/direct/google-chrome-stable_current_${CHROME_ARCH}.deb" \
+      -o "$CHROME_DIR/google-chrome-stable.deb"
+    chmod 644 "$CHROME_DIR/google-chrome-stable.deb"
+    sudo apt install -y "$CHROME_DIR/google-chrome-stable.deb"
+
+    echo "Google Chrome installed."
+  )
+fi
+
+if confirm "Install Telegram Desktop from the official Snap package?"; then
+  if ! command -v snap >/dev/null 2>&1; then
+    sudo apt update
+    sudo apt install -y snapd
+  fi
+  sudo systemctl enable --now snapd.socket
+  sudo snap install telegram-desktop
+
+  echo "Telegram Desktop installed."
+fi
+
 NVIM_CONFIG="$HOME/.config/nvim"
 
 if [[ ! -e "$NVIM_CONFIG" ]]; then
