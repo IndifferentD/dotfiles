@@ -3,36 +3,37 @@ set -euo pipefail
 unset HTTP_PROXY HTTPS_PROXY ALL_PROXY http_proxy https_proxy all_proxy
 umask 077
 
-if [[ $# -ne 0 ]]; then
-  echo "Usage: $0 (enter the VLESS link when prompted)" >&2
+if [[ $# -eq 1 && ( "$1" == --help || "$1" == -h ) ]]; then
+  echo "Usage: $0 [config.json]"
+  echo "Default config: $HOME/opt/xray/config.json"
+  exit 0
+fi
+if [[ $# -gt 1 ]]; then
+  echo "Usage: $0 [config.json]" >&2
   exit 1
 fi
 
-for cmd in docker uv; do
-  if ! command -v "$cmd" >/dev/null 2>&1; then
-    echo "Missing $cmd. Install Docker through bootstrap/ubuntu.sh and apply Home Manager for uv." >&2
-    exit 1
-  fi
-done
+CONFIG_DIR="$HOME/opt/xray"
+SOURCE_CONFIG="${1:-$CONFIG_DIR/config.json}"
+if [[ ! -f "$SOURCE_CONFIG" || ! -r "$SOURCE_CONFIG" ]]; then
+  echo "Config not found or unreadable: $SOURCE_CONFIG" >&2
+  echo "Usage: $0 [config.json]" >&2
+  exit 1
+fi
+
+if ! command -v docker >/dev/null 2>&1; then
+  echo "Missing Docker. Install it through bootstrap/ubuntu.sh." >&2
+  exit 1
+fi
 docker info >/dev/null
 docker compose version >/dev/null
 
-CONFIG_DIR="$HOME/opt/xray"
-if [[ -e "$CONFIG_DIR/config.json" || -e "$CONFIG_DIR/compose.yaml" ]]; then
-  read -r -p "Replace the existing Xray config and container (keeping a backup)? [y/N] " answer
-  [[ "$answer" =~ ^[Yy]$ ]] || exit 0
-fi
-
 WORK_DIR="$(mktemp -d)"
 trap 'rm -rf -- "$WORK_DIR"' EXIT
-read -r -p "VLESS link: " VLESS_LINK
-printf '%s' "$VLESS_LINK" \
-  | uv run --no-project --offline "$(dirname "$0")/vless-config.py" > "$WORK_DIR/config.json"
-unset VLESS_LINK
+install -m 600 "$SOURCE_CONFIG" "$WORK_DIR/config.json"
 
 IMAGE="ghcr.io/xtls/xray-core:26.7.28"
 # Match the host UID so the non-root container can read the mode-600 config.
-docker pull "$IMAGE"
 docker run --rm --network none --user "$(id -u):$(id -g)" \
   --mount "type=bind,src=$WORK_DIR/config.json,dst=/etc/xray/config.json,readonly" \
   "$IMAGE" run -test -config /etc/xray/config.json
@@ -60,19 +61,28 @@ services:
         max-file: "3"
 EOF
 
-mkdir -p "$CONFIG_DIR"
-if [[ -e "$CONFIG_DIR/config.json" || -e "$CONFIG_DIR/compose.yaml" ]]; then
-  BACKUP_DIR="$(mktemp -d "$CONFIG_DIR/backup.XXXXXX")"
+if ! cmp -s "$WORK_DIR/config.json" "$CONFIG_DIR/config.json" \
+  || ! cmp -s "$WORK_DIR/compose.yaml" "$CONFIG_DIR/compose.yaml"; then
+  if [[ -e "$CONFIG_DIR/config.json" || -e "$CONFIG_DIR/compose.yaml" ]]; then
+    read -r -p "Replace the existing Xray files (keeping a backup)? [y/N] " answer
+    [[ "$answer" =~ ^[Yy]$ ]] || exit 0
+    BACKUP_DIR="$(mktemp -d "$CONFIG_DIR/backup.XXXXXX")"
+    for file in config.json compose.yaml; do
+      if [[ -e "$CONFIG_DIR/$file" ]]; then
+        cp -p "$CONFIG_DIR/$file" "$BACKUP_DIR/"
+      fi
+    done
+    echo "Previous configuration saved to $BACKUP_DIR"
+  fi
+  mkdir -p "$CONFIG_DIR"
   for file in config.json compose.yaml; do
-    if [[ -e "$CONFIG_DIR/$file" ]]; then
-      cp -p "$CONFIG_DIR/$file" "$BACKUP_DIR/"
+    if ! cmp -s "$WORK_DIR/$file" "$CONFIG_DIR/$file"; then
+      install -m 600 "$WORK_DIR/$file" "$CONFIG_DIR/$file"
     fi
   done
-  echo "Previous configuration saved to $BACKUP_DIR"
 fi
-install -m 600 "$WORK_DIR/config.json" "$CONFIG_DIR/config.json"
-install -m 600 "$WORK_DIR/compose.yaml" "$CONFIG_DIR/compose.yaml"
+# Recreate to apply edits made directly to ~/opt/xray/config.json as well.
 docker compose -f "$CONFIG_DIR/compose.yaml" up -d --force-recreate --wait
 
-echo "Xray v26.7.28 is configured. SOCKS5: 127.0.0.1:2080"
+echo "Xray v26.7.28 started. Published ports: 127.0.0.1:2080 (TCP/UDP)."
 echo "Config and Compose file: $CONFIG_DIR"

@@ -45,16 +45,18 @@ remains available from the same session picker.
 
 ## Local SOCKS proxy with Xray
 
-Requires Docker with Compose and `uv` (included in Home Manager).
+Requires Docker with Compose and a ready Xray JSON config.
 
 ```bash
+./bootstrap/ubuntu-xray.sh /path/to/config.json
+# Or use ~/opt/xray/config.json:
 ./bootstrap/ubuntu-xray.sh
 ```
 
-Paste a `vless://` link when prompted. Xray v26.7.28 runs in Docker with
-automatic restart; use `socks5h://127.0.0.1:2080` in clients.
-Files are stored in `~/opt/xray`. Rerunning asks before replacing them and keeps
-a backup.
+The config must listen on `0.0.0.0:2080` inside the container.
+Xray v26.7.28 runs with automatic restart; ports are published on `127.0.0.1:2080`
+(TCP/UDP). Config and Compose files live in `~/opt/xray`.
+Unchanged files are kept; replacement asks for confirmation and saves a backup.
 
 ```bash
 docker compose -f "$HOME/opt/xray/compose.yaml" logs --tail=50
