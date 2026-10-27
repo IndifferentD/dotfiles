@@ -43,6 +43,24 @@ nix run github:nix-community/home-manager/master -- \
 If you installed niri, select **Niri** in GDM. DMS starts with niri, and GNOME
 remains available from the same session picker.
 
+## Local SOCKS proxy with Xray
+
+Requires Docker with Compose and `uv` (included in Home Manager).
+
+```bash
+./bootstrap/ubuntu-xray.sh
+```
+
+Paste a `vless://` link when prompted. Xray v26.7.28 runs in Docker with
+automatic restart; use `socks5h://127.0.0.1:2080` in clients.
+Files are stored in `~/opt/xray`. Rerunning asks before replacing them and keeps
+a backup.
+
+```bash
+docker compose -f "$HOME/opt/xray/compose.yaml" logs --tail=50
+docker compose -f "$HOME/opt/xray/compose.yaml" down
+```
+
 ## Updates
 
 ```bash
