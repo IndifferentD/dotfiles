@@ -32,7 +32,8 @@ WORK_DIR="$(mktemp -d)"
 trap 'rm -rf -- "$WORK_DIR"' EXIT
 install -m 600 "$SOURCE_CONFIG" "$WORK_DIR/config.json"
 
-IMAGE="ghcr.io/xtls/xray-core:26.7.28"
+IMAGE="ghcr.io/xtls/xray-core:latest"
+docker pull "$IMAGE"
 # Match the host UID so the non-root container can read the mode-600 config.
 docker run --rm --network none --user "$(id -u):$(id -g)" \
   --mount "type=bind,src=$WORK_DIR/config.json,dst=/etc/xray/config.json,readonly" \
@@ -84,5 +85,5 @@ fi
 # Recreate to apply edits made directly to ~/opt/xray/config.json as well.
 docker compose -f "$CONFIG_DIR/compose.yaml" up -d --force-recreate --wait
 
-echo "Xray v26.7.28 started. Published ports: 127.0.0.1:2080 (TCP/UDP)."
+echo "Xray ($IMAGE) started. Published ports: 127.0.0.1:2080 (TCP/UDP)."
 echo "Config and Compose file: $CONFIG_DIR"

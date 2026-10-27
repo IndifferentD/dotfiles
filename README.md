@@ -54,7 +54,8 @@ Requires Docker with Compose and a ready Xray JSON config.
 ```
 
 The config must listen on `0.0.0.0:2080` inside the container.
-Xray v26.7.28 runs with automatic restart; ports are published on `127.0.0.1:2080`
+Xray uses the `latest` image, pulled on each script run, with automatic restart.
+Ports are published on `127.0.0.1:2080`
 (TCP/UDP). Config and Compose files live in `~/opt/xray`.
 Unchanged files are kept; replacement asks for confirmation and saves a backup.
 
