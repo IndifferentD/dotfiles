@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
-unset HTTP_PROXY HTTPS_PROXY ALL_PROXY http_proxy https_proxy all_proxy
 umask 077
 
 if [[ $# -eq 1 && ( "$1" == --help || "$1" == -h ) ]]; then
