@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  # Use Ubuntu's cc for rustup builds. A profile-wide Nix GCC selects Nix glibc
-  # for linked binaries, so dlopen cannot find host Wayland libraries.
+  # Use Ubuntu's compiler from build-essential (installed by bootstrap).
+  # A profile-wide Nix GCC can cause issues when loading host Wayland libraries.
   home.packages = [ pkgs.rustup ];
 }

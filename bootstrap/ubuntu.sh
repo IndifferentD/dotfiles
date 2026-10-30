@@ -8,9 +8,10 @@ confirm() {
 
 echo "Ubuntu bootstrap"
 
-if confirm "Install base packages, Zsh, and Kitty?"; then
+if confirm "Install base packages, build tools, Zsh, and Kitty?"; then
   sudo apt update
   sudo apt install -y \
+    build-essential \
     curl \
     ca-certificates \
     git \

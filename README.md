@@ -27,7 +27,7 @@ cd "$HOME/dotfiles"
 ./bootstrap/ubuntu.sh
 ```
 
-The bootstrap offers Zsh, Nix, Docker, Google Chrome, Telegram Desktop, and niri
+The bootstrap offers build-essential, Zsh, Nix, Docker, Google Chrome, Telegram Desktop, and niri
 with DankMaterialShell. Each installation is optional and defaults to no.
 Chrome uses Google's official `.deb` package (amd64 or arm64), which adds its
 apt repository for updates; Telegram uses the official `telegram-desktop` Snap.
