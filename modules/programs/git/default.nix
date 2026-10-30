@@ -5,6 +5,13 @@
 
   programs.git = {
     enable = true;
+    # Optional, manually managed overrides for workspace repositories.
+    includes = [
+      {
+        condition = "gitdir:~/workspace/";
+        path = "~/.config/git/workspace.inc";
+      }
+    ];
     settings = {
       core = {
         autocrlf = "input";
