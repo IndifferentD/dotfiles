@@ -29,12 +29,12 @@
         "plus-emph-style" = "syntax #365342";
       };
       init.defaultBranch = "main";
-    } // lib.optionalAttrs (profile == "personal") {
-      credential.helper = "store";
       user = {
         name = "IndifferentD";
         email = "indifferentdensity@gmail.com";
       };
+    } // lib.optionalAttrs (profile == "personal") {
+      credential.helper = "store";
     };
   };
 }

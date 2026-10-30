@@ -32,10 +32,9 @@ in
     nodejs
     bun
 
-    # Infrastructure and GitHub.
+    # Infrastructure.
     kubectl
     k9s
-    gh
 
     nerd-fonts.jetbrains-mono
   ];
