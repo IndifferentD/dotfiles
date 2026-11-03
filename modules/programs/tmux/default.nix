@@ -15,7 +15,7 @@
       {
         plugin = continuum;
         extraConfig = ''
-          # zsh starts tmux on login. The continuum systemd service saves during
+          # Start tmux manually. The continuum systemd service saves during
           # shutdown after the tmux server is gone, replacing `last` with an
           # empty snapshot.
           set -g @continuum-boot 'off'
