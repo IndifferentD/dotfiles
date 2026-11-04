@@ -11,8 +11,8 @@ if [[ "$ID" != ubuntu ]] || ! dpkg --compare-versions "$VERSION_ID" ge 26.04; th
 fi
 
 sudo apt install -y software-properties-common
-sudo add-apt-repository -y ppa:avengemedia/danklinux
-sudo add-apt-repository -y ppa:avengemedia/dms
+sudo add-apt-repository -y ppa:duxlabs/dux-repo
+sudo add-apt-repository -y ppa:duxlabs/dms
 sudo apt update
 sudo apt install -y niri dms fuzzel
 
