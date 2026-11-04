@@ -24,6 +24,8 @@ in
     gnutar
     curl
     wl-clipboard
+    # Image processing tools used by image.nvim to display Pele diagrams.
+    imagemagick
 
     # Reverse engineering tools.
     detect-it-easy
