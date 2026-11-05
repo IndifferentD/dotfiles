@@ -37,6 +37,7 @@ in
     # Infrastructure.
     kubectl
     k9s
+    postgresql
 
     nerd-fonts.jetbrains-mono
   ];
