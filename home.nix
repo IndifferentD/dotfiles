@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, crit, system, ... }:
 
 let
   programEntries = builtins.readDir ./modules/programs;
@@ -20,6 +20,7 @@ in
     eza
     jq
     uv
+    crit.packages.${system}.default
     tree-sitter
     gnutar
     curl

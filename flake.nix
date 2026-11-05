@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    crit.url = "github:tomasz-tomczyk/crit";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -14,7 +15,7 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, neovim-nightly, ... }:
+    { nixpkgs, home-manager, neovim-nightly, crit, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -24,7 +25,7 @@
           inherit pkgs;
 
           extraSpecialArgs = {
-            inherit system neovim-nightly profile;
+            inherit system neovim-nightly profile crit;
           };
 
           modules = [
