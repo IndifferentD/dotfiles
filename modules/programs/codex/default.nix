@@ -3,6 +3,21 @@
 {
   nixpkgs.config.allowUnfreePredicate = pkg: lib.getName pkg == "rtk";
 
+  programs.codex = {
+    enable = true;
+    # The package is installed below with the system bwrap wrapper.
+    package = null;
+    mutableSettings = true;
+    settings = {
+      approvals_reviewer = "auto_review";
+      tui = {
+        screen_reader_detection_done = true;
+        status_line = [ "model-with-reasoning" "current-dir" "thread-name" "weekly-limit" ];
+        status_line_use_colors = true;
+      };
+    };
+  };
+
   home.packages = [
     (pkgs.symlinkJoin {
       name = "codex-system-bwrap-${pkgs.codex.version}";
