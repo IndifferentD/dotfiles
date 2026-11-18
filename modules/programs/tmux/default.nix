@@ -10,6 +10,7 @@
     plugins = with pkgs.tmuxPlugins; [
       cpu
       extrakto
+      fzf-tmux-url
       # Keep these last, in this order, for session restoration.
       resurrect
       {
