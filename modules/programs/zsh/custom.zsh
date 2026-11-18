@@ -31,6 +31,7 @@ codex() {
     ALL_PROXY="$proxy" \
     HTTPS_PROXY="$proxy" \
     HTTP_PROXY="$proxy" \
+    NO_PROXY="localhost,127.0.0.1,::1" \
     command codex "$@"
   else
     printf 'CODEX_PROXY is not set. Run Codex without proxy? [y/N] '
